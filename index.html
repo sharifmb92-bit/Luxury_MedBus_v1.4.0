@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MED BASHA PRO v1.4.1</title>
+    <title>MED BASHA PRO v1.3.1</title>
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -49,7 +49,7 @@
 </head>
 <body :style="'font-size: ' + settings.fontSize + 'px;'">
 
-    <!-- TOAST NOTIFICACIONES -->
+    <!-- SISTEMA DE NOTIFICACIONES (TOASTS) -->
     <div class="fixed top-4 left-0 w-full flex justify-center z-[100] pointer-events-none" x-show="toast.visible" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 -translate-y-5" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-5" x-cloak>
         <div class="glass-card px-5 py-3 rounded-full flex items-center gap-3 shadow-2xl border" :class="toast.isError ? 'border-red-500/50 bg-red-900/30' : 'border-green-500/50 bg-green-900/30'">
             <span class="text-lg" x-text="toast.isError ? '⚠️' : '✅'"></span>
@@ -57,7 +57,7 @@
         </div>
     </div>
 
-    <!-- PANTALLA 0: ACCESO -->
+    <!-- PANTALLA 0: ACCESO EXCLUSIVO PERSONAL -->
     <div x-show="screen === 0" x-transition:enter="transition ease-out duration-300" x-cloak class="p-6 max-w-md mx-auto flex flex-col justify-center min-h-screen text-center">
         <div class="mb-8">
             <h1 class="text-4xl font-black italic tracking-tighter text-slate-300">MED BASHA PRO</h1>
@@ -66,12 +66,14 @@
 
         <div class="glass-card p-6 rounded-3xl space-y-4 shadow-2xl border border-white/5">
             <button @click="loginGoogle()" class="w-full p-5 bg-white text-slate-900 font-black text-xs uppercase tracking-wider rounded-xl flex items-center justify-center gap-3 active:scale-95 transition-transform">
-                <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.47 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
                 Sincronizar con Google
             </button>
+
             <div class="flex items-center my-2 text-xs text-slate-500 font-bold uppercase">
                 <hr class="flex-1 border-white/10 mr-2"> O <hr class="flex-1 border-white/10 ml-2">
             </div>
+
             <button @click="loginAnonimo()" class="w-full p-4 bg-slate-800 text-slate-300 font-black text-xs uppercase tracking-wider rounded-xl active:scale-95 transition-transform">
                 Entrar en Modo Local (Sin Cuenta)
             </button>
@@ -80,11 +82,11 @@
     </div>
 
     <!-- PANTALLA 1: INICIO -->
-    <div x-show="screen === 1" x-transition:enter="transition ease-out duration-300" x-cloak class="p-4 max-w-md mx-auto pb-24">
+    <div x-show="screen === 1" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" x-cloak class="p-4 max-w-md mx-auto pb-24">
         <header class="flex justify-between items-center mb-6">
             <div>
                 <h1 class="text-2xl font-black italic tracking-tighter" :style="'color:' + settings.colorMaestro">MED BASHA PRO</h1>
-                <p class="text-[10px] text-slate-500 uppercase font-black" x-text="isAnon ? 'Modo Local Protegido' : 'Cuenta Nube Vinculada'"></p>
+                <p class="text-[10px] text-slate-500 uppercase font-black" x-text="isAnon ? 'Modo Local Protegido' : 'Cuenta Personal Vinculada'"></p>
             </div>
             <div class="flex items-center gap-3">
                 <span class="firma-footer text-xs" x-text="'medbasha ' + version"></span>
@@ -92,7 +94,6 @@
             </div>
         </header>
 
-        <!-- CALENDARIO -->
         <div class="glass-card rounded-3xl p-4 mb-4 shadow-xl">
             <div class="flex justify-between items-center mb-4">
                 <button @click="changeMonth(-1)" class="p-2 active:scale-75 transition-transform"><i data-lucide="chevron-left"></i></button>
@@ -141,9 +142,9 @@
     </div>
 
     <!-- PANTALLA 2: REGISTRO DE JORNADA -->
-    <div x-show="screen === 2" x-transition:enter="transition ease-out duration-300" x-cloak class="p-4 max-w-md mx-auto pb-44">
+    <div x-show="screen === 2" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" x-cloak class="p-4 max-w-md mx-auto pb-44">
         <header class="flex items-center gap-4 mb-6">
-            <button @click="volverAlInicio()" class="p-2 bg-slate-800 rounded-full active:scale-90 transition"><i data-lucide="arrow-left"></i></button>
+            <button @click="comprobarSalidaPreventiva()" class="p-2 bg-slate-800 rounded-full active:scale-90 transition"><i data-lucide="arrow-left"></i></button>
             <div class="flex-1">
                 <h2 class="text-xl font-black uppercase tracking-tighter" x-text="form.esPartida ? 'Jornada Partida' : 'Jornada Continua'"></h2>
                 <p class="text-[10px] text-blue-400 font-bold" x-text="'Fecha: ' + fechaSeleccionada"></p>
@@ -154,19 +155,18 @@
         </header>
 
         <div class="space-y-4">
-            <!-- TRAMO 1 -->
-            <div class="glass-card p-4 rounded-3xl border-l-4 border-blue-500">
+            <div class="glass-card p-4 rounded-3xl border-l-4 border-blue-500 transition-all duration-300">
                 <div class="flex justify-between items-center mb-3">
                     <span class="text-[10px] font-black text-blue-400 uppercase">Bus Mañana</span>
-                    <input type="text" x-model="form.bus1" @input="guardarBorrador()" placeholder="Nº BUS" autocapitalize="characters" class="w-24 input-dark uppercase">
+                    <input type="text" x-model="form.bus1" @input="guardarBorrador()" placeholder="BUS 1" autocapitalize="characters" autocomplete="off" autocorrect="off" spellcheck="false" class="w-24 input-dark uppercase">
                 </div>
                 <div class="grid grid-cols-2 gap-2 mb-3">
                     <input type="time" x-model="form.hE1" @change="calcular(); guardarBorrador()" class="input-dark">
                     <input type="time" x-model="form.hS1" @change="calcular(); guardarBorrador()" class="input-dark">
                 </div>
                 <div class="grid grid-cols-2 gap-2">
-                    <input type="number" x-model="form.kmI1" @input="calcular(); guardarBorrador()" placeholder="KM Ini" class="input-dark">
-                    <input type="number" x-model="form.kmF1" @input="calcular(); guardarBorrador()" placeholder="KM Fin" class="input-dark">
+                    <input type="number" step="1" x-model="form.kmI1" @input="calcular(); guardarBorrador()" placeholder="KM Ini" class="input-dark">
+                    <input type="number" step="1" x-model="form.kmF1" @input="calcular(); guardarBorrador()" placeholder="KM Fin" class="input-dark">
                 </div>
                 <div class="flex justify-center mt-3">
                     <button @click="forzarGuardadoBorrador()" class="text-[10px] bg-blue-900/40 px-5 py-2.5 rounded-full border border-blue-500/40 font-black uppercase active:scale-95 transition flex items-center gap-2 text-blue-300">
@@ -175,62 +175,67 @@
                 </div>
             </div>
 
-            <!-- TRAMO 2 (PARTIDA) -->
-            <div x-show="form.esPartida" x-transition:enter="transition ease-out duration-300" class="glass-card p-4 rounded-3xl border-l-4 border-orange-500">
+            <div x-show="form.esPartida" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 -translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="glass-card p-4 rounded-3xl border-l-4 border-orange-500">
                 <div class="flex justify-between items-center mb-3">
                     <span class="text-[10px] font-black text-orange-400 uppercase">Bus Tarde</span>
-                    <input type="text" x-model="form.bus2" @input="guardarBorrador()" placeholder="Nº BUS" autocapitalize="characters" class="w-24 input-dark uppercase">
+                    <input type="text" x-model="form.bus2" @input="guardarBorrador()" placeholder="BUS 2" autocapitalize="characters" autocomplete="off" autocorrect="off" spellcheck="false" class="w-24 input-dark uppercase">
                 </div>
                 <div class="grid grid-cols-2 gap-2 mb-3">
                     <input type="time" x-model="form.hE2" @change="calcular(); guardarBorrador()" class="input-dark">
                     <input type="time" x-model="form.hS2" @change="calcular(); guardarBorrador()" class="input-dark">
                 </div>
                 <div class="grid grid-cols-2 gap-2">
-                    <input type="number" x-model="form.kmI2" @input="calcular(); guardarBorrador()" placeholder="KM Ini" class="input-dark">
-                    <input type="number" x-model="form.kmF2" @input="calcular(); guardarBorrador()" placeholder="KM Fin" class="input-dark">
+                    <input type="number" step="1" x-model="form.kmI2" @input="calcular(); guardarBorrador()" placeholder="KM Ini" class="input-dark">
+                    <input type="number" step="1" x-model="form.kmF2" @input="calcular(); guardarBorrador()" placeholder="KM Fin" class="input-dark">
                 </div>
             </div>
 
-            <!-- DIETAS Y FESTIVOS -->
             <div class="grid grid-cols-3 gap-2 mt-6">
                 <button @click="manualComida = true; form.comida = !form.comida; guardarBorrador()" 
                         :class="form.comida ? (autoComidaCalc ? 'bg-green-600' : 'animate-amber') : 'bg-slate-800 opacity-40'" 
-                        class="p-4 rounded-2xl flex flex-col items-center gap-1 font-black transition-all border border-transparent">
+                        class="p-4 rounded-2xl flex flex-col items-center gap-1 font-black transition-all active:scale-95 border border-transparent">
                     <i data-lucide="utensils" class="w-4 h-4"></i><span class="text-[9px] uppercase">Comida</span>
                 </button>
+
                 <button @click="manualCena = true; form.cena = !form.cena; guardarBorrador()" 
                         :class="form.cena ? (autoCenaCalc ? 'bg-green-600' : 'animate-amber') : 'bg-slate-800 opacity-40'" 
-                        class="p-4 rounded-2xl flex flex-col items-center gap-1 font-black transition-all border border-transparent">
+                        class="p-4 rounded-2xl flex flex-col items-center gap-1 font-black transition-all active:scale-95 border border-transparent">
                     <i data-lucide="moon" class="w-4 h-4"></i><span class="text-[9px] uppercase">Cena</span>
                 </button>
+
                 <button @click="form.festivo = !form.festivo; guardarBorrador()" 
                         :class="form.festivo ? 'bg-red-600' : 'bg-slate-800 opacity-40'" 
-                        class="p-4 rounded-2xl flex flex-col items-center gap-1 font-black transition-all">
+                        class="p-4 rounded-2xl flex flex-col items-center gap-1 font-black transition-all active:scale-95">
                     <i data-lucide="calendar-heart" class="w-4 h-4"></i><span class="text-[9px] uppercase">Festivo</span>
                 </button>
             </div>
+            <p class="text-center mt-2 text-[8px] text-slate-500 font-bold tracking-widest uppercase">
+                <span class="text-green-500">■ Auto</span> &nbsp; <span class="text-amber-500">■ Excepción (Manual)</span>
+            </p>
         </div>
 
-        <!-- BARRA INFERIOR DE ACCIÓN -->
         <div class="fixed bottom-0 left-0 w-full glass-card border-t border-white/10 p-6 z-50">
             <div class="flex justify-between items-center max-w-md mx-auto">
-                <div class="text-center">
+                <div class="text-center transition-all duration-300">
                     <p class="text-[9px] text-slate-500 font-black mb-1 uppercase">H. Total</p>
-                    <span class="text-3xl font-black text-green-400" x-text="res.hTotal">00:00</span>
+                    <span class="text-3xl font-black text-green-400" x-text="res.hTotal">06:00</span>
                 </div>
-                <div class="text-center">
+                <div class="text-center transition-all duration-300">
                     <p class="text-[9px] text-slate-500 font-black mb-1 uppercase">KM Totales</p>
                     <span class="text-3xl font-black" :class="errorKm ? 'text-red-500' : 'text-cyan-400'" x-text="errorKm ? 'ERROR' : res.kmTotal">0</span>
                 </div>
-                <button @click="guardarJornada()" :disabled="errorKm" :class="errorKm ? 'bg-slate-700' : 'bg-blue-600'" class="text-white p-5 rounded-full shadow-2xl active:scale-75 transition-all">
+                <button @click="guardarJornada()" 
+                        :disabled="errorKm"
+                        :class="errorKm ? 'bg-slate-700' : 'bg-blue-600'" 
+                        class="text-white p-5 rounded-full shadow-2xl active:scale-75 transition-all duration-200">
                     <i data-lucide="save" class="w-7 h-7"></i>
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- PANTALLA 3: NÓMINA (HISTORIAL) -->
-    <div x-show="screen === 3" x-transition:enter="transition ease-out duration-300" x-cloak class="p-4 max-w-md mx-auto pb-32">
+    <!-- PANTALLA 3: NÓMINA GENERAL -->
+    <div x-show="screen === 3" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" x-cloak class="p-4 max-w-md mx-auto pb-32">
         <header class="flex justify-between items-center mb-4">
             <button @click="screen = 1" class="p-2 bg-slate-800 rounded-full active:scale-90 transition"><i data-lucide="arrow-left"></i></button>
             <h2 class="text-xl font-black uppercase tracking-tighter italic">Nómina del Ciclo</h2>
@@ -258,7 +263,7 @@
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                     <div class="text-center">
-                        <span class="block text-[8px] text-slate-500 font-black uppercase">Nocturnidad</span>
+                        <span class="block text-[8px] text-slate-500 font-black uppercase">Nocturnidad (Horas)</span>
                         <p class="text-2xl font-black text-purple-400" x-text="stats.hoursNocturnas"></p>
                     </div>
                     <div class="text-center border-l border-white/5">
@@ -281,28 +286,29 @@
                                 <span class="bg-cyan-500/10 px-1.5 py-0.5 rounded text-cyan-400" x-text="'KM: ' + semana.totalKm"></span>
                                 <span class="bg-purple-500/10 px-1.5 py-0.5 rounded text-purple-400" x-text="'Noc: ' + semana.totalNocturnas"></span>
                                 <span class="bg-orange-500/10 px-1.5 py-0.5 rounded text-orange-400" x-text="'Part: ' + semana.totalPartidas"></span>
+                                <span class="bg-red-500/10 px-1.5 py-0.5 rounded text-red-400" x-text="'Fest: ' + semana.totalFestivos"></span>
                             </div>
                         </div>
                     </div>
 
                     <div class="glass-card rounded-2xl overflow-hidden border border-white/5">
                         <table class="w-full text-center table-fixed">
-                            <thead class="bg-black/20 text-[9px] text-slate-500 uppercase">
+                            <thead class="bg-black/20 text-[9px] text-slate-500 uppercase tracking-tighter">
                                 <tr>
                                     <th class="p-2 text-left w-[24%]">Día</th>
                                     <th class="w-[14%]">Bus</th>
-                                    <th class="w-[14%]">H.</th>
+                                    <th class="w-[13%]">H.</th>
                                     <th class="w-[11%]">Die.</th>
                                     <th class="w-[11%]">Par.</th>
                                     <th class="w-[13%]">Noc.</th>
-                                    <th class="w-[13%]">Fes.</th> <!-- REAÑADIDO: Columna Festivo -->
+                                    <th class="w-[13%]">Fes.</th>
                                     <th class="w-[10%]"></th>
                                 </tr>
                             </thead>
                             <tbody class="text-[11.5px] font-bold divide-y divide-white/5">
                                 <template x-for="item in semana.registros" :key="item.id">
-                                    <tr class="hover:bg-white/5">
-                                        <td class="p-2 text-left flex items-center gap-1 cursor-pointer truncate" @click="cargarRegistro(item)">
+                                    <tr class="transition hover:bg-white/5">
+                                        <td class="p-2 text-left flex items-center gap-1 cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap" @click="cargarRegistro(item)">
                                             <div :class="item.esPartida ? 'bg-orange-500' : 'bg-blue-400'" class="w-2 h-2 rounded-full shrink-0"></div>
                                             <span x-text="item.fecha"></span>
                                         </td>
@@ -311,9 +317,9 @@
                                         <td x-text="item.dietas" class="text-green-400"></td>
                                         <td x-text="item.esPartida ? '1' : '-'" class="text-orange-400"></td>
                                         <td x-text="getMinutosNocturnos(item) > 0 ? formatMins(getMinutosNocturnos(item)) : '-'" class="text-purple-400 text-[10px]"></td>
-                                        <td x-text="item.esFestivo ? '1' : '-'" class="text-red-400"></td> <!-- REAÑADIDO: Celda Festivo -->
+                                        <td x-text="item.esFestivo ? '1' : '-'" class="text-red-400"></td>
                                         <td class="p-1">
-                                            <button @click="borrarRegistro(item.id)" class="text-red-500/40 p-1.5 mx-auto flex items-center justify-center">
+                                            <button @click="borrarRegistro(item.id)" class="text-red-500/40 p-1.5 active:scale-75 transition flex items-center justify-center mx-auto">
                                                 <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
                                             </button>
                                         </td>
@@ -324,39 +330,46 @@
                     </div>
                 </div>
             </template>
+            <template x-if="semanasAgrupadas.length === 0">
+                <div class="glass-card p-6 rounded-2xl text-center text-xs text-slate-500 italic">
+                    No hay turnos registrados en el mes de <span x-text="monthNames[currentMonth]"></span>
+                </div>
+            </template>
         </div>
     </div>
 
     <!-- PANTALLA 4: CONFIGURACIÓN -->
-    <div x-show="screen === 4" x-transition:enter="transition ease-out duration-300" x-cloak class="p-4 max-w-md mx-auto pb-24">
+    <div x-show="screen === 4" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" x-cloak class="p-4 max-w-md mx-auto pb-24">
         <header class="flex items-center gap-4 mb-8">
             <button @click="screen = 1" class="p-2 bg-slate-800 rounded-full active:scale-90 transition"><i data-lucide="arrow-left"></i></button>
             <h2 class="text-xl font-black uppercase tracking-tighter">Configuración</h2>
         </header>
 
         <div class="space-y-6">
-            <div class="w-full glass-card p-5 rounded-3xl flex items-center justify-between border-l-4" :class="firebaseIniciado ? 'border-green-500' : 'border-slate-500'">
+            <button @click="notificar(firebaseIniciado ? 'Estás conectado a la nube privada' : 'Modo local. Inicia sesión.', false)" 
+                    class="w-full glass-card p-5 rounded-3xl flex items-center justify-between border-l-4 transition" 
+                    :class="firebaseIniciado ? 'border-blue-500' : 'border-slate-500'">
                 <div class="flex items-center gap-3">
-                    <i data-lucide="cloud" :class="firebaseIniciado ? 'text-green-400' : 'text-slate-400'"></i>
+                    <i data-lucide="cloud" :class="firebaseIniciado ? 'text-blue-400' : 'text-slate-400'"></i>
                     <div class="text-left">
-                        <span class="block text-[10px] font-black uppercase" x-text="firebaseIniciado ? 'Sincronización en la Nube Activa' : 'Modo Desconectado'"></span>
-                        <span class="text-[8px] italic font-bold" :class="firebaseIniciado ? 'text-green-400' : 'text-slate-400'" x-text="firebaseIniciado ? 'Tus datos están protegidos en tiempo real' : 'Inicia sesión con Google para activar la nube'"></span>
+                        <span class="block text-[10px] font-black uppercase" x-text="firebaseIniciado ? 'Sincronización Activa' : 'Modo Local (Sin Cuenta)'"></span>
+                        <span class="text-[8px] italic font-bold" :class="firebaseIniciado ? 'text-green-400' : 'text-slate-500'" x-text="firebaseIniciado ? 'Tus datos se guardan de forma aislada' : 'Inicia sesión para respaldar tus datos'"></span>
                     </div>
                 </div>
-            </div>
+            </button>
 
             <div class="grid grid-cols-3 gap-3">
-                <button @click="abrirCalculadora()" class="glass-card p-4 rounded-3xl flex flex-col items-center gap-2 border-b-4 border-yellow-500 transition">
+                <button @click="abrirCalculadora()" class="glass-card p-4 rounded-3xl flex flex-col items-center gap-2 border-b-4 border-yellow-500 active:scale-95 transition">
                     <i data-lucide="calculator" class="text-yellow-500 w-5 h-5"></i>
                     <span class="font-black uppercase text-[9px]">Calculadora</span>
                 </button>
-                <button @click="exportarMensualADrive()" class="glass-card p-4 rounded-3xl flex flex-col items-center gap-2 border-b-4 border-green-500 transition">
+                <button @click="exportarMensualADrive()" class="glass-card p-4 rounded-3xl flex flex-col items-center gap-2 border-b-4 border-green-500 active:scale-95 transition">
                     <i data-lucide="file-spreadsheet" class="text-green-500 w-5 h-5"></i>
-                    <span class="font-black uppercase text-[9px]">CSV Mes</span>
+                    <span class="font-black uppercase text-[9px]">A mi Drive</span>
                 </button>
-                <button @click="generarPDFDescargaDirecta()" class="glass-card p-4 rounded-3xl flex flex-col items-center gap-2 border-b-4 border-red-500 transition">
+                <button @click="generarPDFDescargaDirecta()" class="glass-card p-4 rounded-3xl flex flex-col items-center gap-2 border-b-4 border-red-500 active:scale-95 transition">
                     <i data-lucide="file-text" class="text-red-500 w-5 h-5"></i>
-                    <span class="font-black uppercase text-[9px]">Mes en HTML</span>
+                    <span class="font-black uppercase text-[9px]">Mes en PDF</span>
                 </button>
             </div>
 
@@ -374,8 +387,8 @@
                 </div>
             </div>
             
-            <button @click="logout()" class="w-full p-4 text-[10px] font-black uppercase text-amber-500 bg-amber-500/10 rounded-2xl">Cerrar Sesión Activa</button>
-            <button @click="confirmarReset()" class="w-full p-4 text-[10px] font-black uppercase text-red-500 bg-red-500/10 rounded-2xl">Resetear Datos Locales</button>
+            <button @click="logout()" class="w-full p-4 text-[10px] font-black uppercase text-amber-500 bg-amber-500/10 rounded-2xl active:scale-95 transition">Cerrar Sesión Activa</button>
+            <button @click="confirmarReset()" class="w-full p-4 text-[10px] font-black uppercase text-red-500 bg-red-500/10 rounded-2xl active:scale-95 transition">Resetear Datos Locales</button>
         </div>
     </div>
 
@@ -392,14 +405,16 @@
         };
 
         try {
-            if (!firebase.apps.length) { firebase.initializeApp(fbConfig); }
+            if (!firebase.apps.length) {
+                firebase.initializeApp(fbConfig);
+            }
             db = firebase.database();
             esSincronizadoEnNube = true;
-        } catch(e) { console.error("Error en Firebase", e); }
+        } catch(e) { console.error("Error en arranque nativo de Firebase", e); }
 
         function appBus() {
             return {
-                version: 'v1.4.1',
+                version: 'v1.3.1',
                 screen: 0, 
                 userId: 'local',
                 isAnon: false,
@@ -412,17 +427,23 @@
                 timeNow: '00:00:00', 
                 cicloLabel: '',
                 palette:['#707070', '#3b82f6', '#f59e0b', '#10b981', '#ef4444'], 
+                
                 settings: { fontSize: 16, colorMaestro: '#707070' },
                 
                 form: { id: null, esPartida: false, bus1: '', hE1: '', hS1: '', kmI1: '', kmF1: '', bus2: '', hE2: '', hS2: '', kmI2: '', kmF2: '', comida: false, cena: false, festivo: false },
-                res: { hTotal: '00:00', kmTotal: 0 },
+                res: { hTotal: '06:00', kmTotal: 0 },
                 
                 historial:[], 
                 semanasAgrupadas:[],
-                stats: { hTotales: '0:00', numPartidas: 0, numDietas: 0, kmTotales: 0, hoursNocturnas: '00:00' },
+                stats: { hTotales: '0:00', numPartidas: 0, numDietas: 0, numFestivos: 0, kmTotales: 0, hoursNocturnas: '00:00' },
                 
-                manualComida: false, manualCena: false, autoComidaCalc: false, autoCenaCalc: false,
-                errorKm: false, toast: { visible: false, msg: '', isError: false },
+                manualComida: false,
+                manualCena: false,
+                autoComidaCalc: false,
+                autoCenaCalc: false,
+
+                errorKm: false,
+                toast: { visible: false, msg: '', isError: false },
                 firebaseIniciado: false,
 
                 init() {
@@ -431,6 +452,7 @@
                     
                     this.renderCalendar(); 
                     this.updateClock(); 
+                    this.calcularTotales();
                     setInterval(() => this.updateClock(), 1000); 
 
                     if (esSincronizadoEnNube) {
@@ -446,52 +468,89 @@
                                 this.firebaseIniciado = false;
                             }
                         });
+                    } else {
+                        this.screen = 0; 
                     }
 
-                    const borrador = localStorage.getItem('bus_borrador_seguridad');
-                    if (borrador) {
+                    const borradorGuardado = localStorage.getItem('bus_borrador_seguridad');
+                    if (borradorGuardado) {
                         try {
-                            this.form = JSON.parse(borrador);
-                            this.fechaSeleccionada = this.form.fechaBorrador;
-                            this.screen = 2; this.calcular();
-                        } catch(e){}
+                            const datosBorrador = JSON.parse(borradorGuardado);
+                            if (datosBorrador && datosBorrador.fechaBorrador) {
+                                this.form = datosBorrador;
+                                this.fechaSeleccionada = datosBorrador.fechaBorrador;
+                                this.screen = 2; 
+                                this.calcular(); 
+                                this.notificar("Borrador recuperado con éxito", false);
+                            }
+                        } catch (e) { }
                     }
                     this.actualizarIconos();
                 },
 
                 loginGoogle() {
-                    if (!esSincronizadoEnNube) return;
+                    if (!esSincronizadoEnNube) return this.notificar("Error de red", true);
                     const provider = new firebase.auth.GoogleAuthProvider();
-                    firebase.auth().signInWithPopup(provider).then((res) => {
-                        this.userId = res.user.uid; this.isAnon = false; this.screen = 1;
-                        this.firebaseIniciado = true;
-                    });
+                    firebase.auth().signInWithPopup(provider)
+                        .then((result) => {
+                            this.userId = result.user.uid;
+                            this.isAnon = false;
+                            this.screen = 1;
+                            this.firebaseIniciado = true;
+                            this.notificar("Sesión iniciada con Google");
+                        })
+                        .catch((e) => this.notificar("Error: " + e.message, true));
                 },
 
                 loginAnonimo() {
-                    if (!esSincronizadoEnNube) return;
-                    firebase.auth().signInAnonymously().then((res) => {
-                        this.userId = res.user.uid; this.isAnon = true; this.screen = 1;
-                        this.firebaseIniciado = true;
-                    });
+                    if (!esSincronizadoEnNube) return this.notificar("Error de red", true);
+                    firebase.auth().signInAnonymously()
+                        .then((result) => {
+                            this.userId = result.user.uid;
+                            this.isAnon = true;
+                            this.screen = 1;
+                            this.firebaseIniciado = true;
+                            this.notificar("Modo Local Activado");
+                        })
+                        .catch((e) => this.notificar("Error: " + e.message, true));
                 },
 
                 logout() {
-                    firebase.auth().signOut().then(() => {
-                        this.userId = 'local'; this.historial = []; this.saveHist();
-                        this.screen = 0; this.firebaseIniciado = false;
-                    });
+                    if (esSincronizadoEnNube) {
+                        firebase.auth().signOut().then(() => {
+                            this.userId = 'local';
+                            this.historial = [];
+                            this.saveHist();
+                            this.screen = 0;
+                            this.firebaseIniciado = false;
+                            this.notificar("Sesión cerrada correctamente");
+                        });
+                    }
                 },
 
                 iniciarSyncAutomatico() {
                     if (!db || this.userId === 'local') return;
-                    db.ref('usuarios/' + this.userId).on('value', (snapshot) => {
-                        const items = [];
-                        snapshot.forEach((child) => { items.push(child.val()); });
-                        if (items.length > 0) {
-                            this.historial = items.sort((a, b) => b.id - a.id);
-                            this.saveHist(); this.calcularTotales();
+
+                    // CORREGIDO PARA TU PROYECTO REAL: Ruta directa sin app_turnos/
+                    const nodoUser = db.ref('usuarios/' + this.userId);
+
+                    nodoUser.on('value', (snapshot) => {
+                        const turnosActualizados = [];
+                        
+                        snapshot.forEach((childSnapshot) => {
+                            turnosActualizados.push(childSnapshot.val());
+                        });
+
+                        if (turnosActualizados.length > 0) {
+                            this.historial = turnosActualizados.sort((a, b) => b.id - a.id);
+                            this.saveHist();
+                            this.calcularTotales();
                         }
+                        this.firebaseIniciado = true;
+                        this.actualizarIconos();
+                    }, (error) => {
+                        console.error("Error en sincronización activa:", error);
+                        this.firebaseIniciado = false;
                     });
                 },
 
@@ -499,25 +558,34 @@
                     if (!startStr || !endStr) return 0;
                     let [h1, m1] = startStr.split(':').map(Number);
                     let [h2, m2] = endStr.split(':').map(Number);
-                    let start = h1 * 60 + m1; let end = h2 * 60 + m2;
+                    let start = h1 * 60 + m1;
+                    let end = h2 * 60 + m2;
+                    
                     let overlap = (s, e) => {
-                        let n2 = Math.min(e, 360); let m1 = Math.max(s, 1320);
+                        let n1 = Math.max(s, 0); let n2 = Math.min(e, 360); 
+                        let m1 = Math.max(s, 1320); let m2 = Math.min(e, 1440); 
                         let total = 0;
-                        if (s < n2) total += (n2 - s);
-                        if (m1 < end) total += (end - m1);
+                        if (n1 < n2) total += (n2 - n1);
+                        if (m1 < m2) total += (m2 - m1);
                         return total;
                     };
-                    return start <= end ? overlap(start, end) : overlap(start, 1440) + overlap(0, end);
+
+                    if (start <= end) { return overlap(start, end); } 
+                    else { return overlap(start, 1440) + overlap(0, end); }
                 },
 
                 getMinutosNocturnos(item) {
-                    let m = this.calcularIntervaloNocturno(item.datos.hE1, item.datos.hS1);
-                    if (item.datos.esPartida) m += this.calcularIntervaloNocturno(item.datos.hE2, item.datos.hS2);
-                    return m;
+                    let mins = this.calcularIntervaloNocturno(item.datos.hE1, item.datos.hS1);
+                    if (item.datos.esPartida) {
+                        mins += this.calcularIntervaloNocturno(item.datos.hE2, item.datos.hS2);
+                    }
+                    return mins;
                 },
 
-                formatMins(tMins) {
-                    return `${String(Math.floor(tMins/60)).padStart(2,'0')}:${String(tMins%60).padStart(2,'0')}`;
+                formatMins(totalMins) {
+                    const h = Math.floor(totalMins / 60);
+                    const m = totalMins % 60;
+                    return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
                 },
 
                 guardarBorrador() {
@@ -526,14 +594,26 @@
                     localStorage.setItem('bus_borrador_seguridad', JSON.stringify(copia));
                 },
 
-                forzarGuardadoBorrador() { this.guardarBorrador(); this.notificar("Borrador asegurado"); },
+                forzarGuardadoBorrador() {
+                    this.guardarBorrador();
+                    this.notificar("¡Borrador asegurado correctamente!", false);
+                },
 
+                comprobarSalidaPreventiva() {
+                    this.volverAlInicio();
+                },
+
+                updateClock() { 
+                    this.timeNow = new Date().toLocaleTimeString('es-ES', { hour12: false }); 
+                },
+                
                 renderCalendar() {
                     let first = new Date(this.currentYear, this.currentMonth, 1).getDay();
                     let days = new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
                     first = (first === 0) ? 6 : first - 1; 
-                    this.daysInMonth = [];
-                    for (let i = 0; i < first; i++) this.daysInMonth.push({ num: null });
+                    
+                    this.daysInMonth =[];
+                    for (let i = 0; i < first; i++) { this.daysInMonth.push({ num: null }); }
                     for (let i = 1; i <= days; i++) {
                         this.daysInMonth.push({ num: i, isToday: new Date().toDateString() === new Date(this.currentYear, this.currentMonth, i).toDateString() });
                     }
@@ -545,160 +625,359 @@
                 obtenerTipoRegistro(dia) { return (this.historial.find(h => h.fecha === this.formatearFecha(dia))?.esPartida) ? 'partida' : 'continua'; },
 
                 seleccionarDia(dia) {
-                    this.fechaSeleccionada = this.formatearFecha(dia);
-                    const r = this.historial.find(h => h.fecha === this.fechaSeleccionada);
-                    if(r) this.cargarRegistro(r); else this.openRegistro('continua');
+                    const f = this.formatearFecha(dia);
+                    const r = this.historial.find(h => h.fecha === f);
+                    this.fechaSeleccionada = f;
+                    
+                    if(r) { this.cargarRegistro(r); } 
+                    else { this.openRegistro('continua'); }
                 },
 
                 openRegistro(t) {
                     this.form = { id: Date.now(), esPartida: (t === 'partida'), bus1: '', hE1: '', hS1: '', kmI1: '', kmF1: '', bus2: '', hE2: '', hS2: '', kmI2: '', kmF2: '', comida: false, cena: false, festivo: false };
-                    this.manualComida = false; this.manualCena = false; this.screen = 2; this.calcular();
+                    this.manualComida = false;
+                    this.manualCena = false;
+                    this.screen = 2; this.calcular(); this.actualizarIconos();
                 },
 
                 cargarRegistro(item) {
                     this.form = JSON.parse(JSON.stringify(item.datos));
-                    this.fechaSeleccionada = item.fecha; this.screen = 2; this.calcular();
+                    this.fechaSeleccionada = item.fecha; 
+                    this.manualComida = false;
+                    this.manualCena = false;
+                    this.screen = 2; this.calcular(); this.actualizarIconos();
                 },
 
                 calcular() {
-                    const toM = (t) => { if(!t) return null; let [h,m] = t.split(':').map(Number); return h*60+m; };
-                    let e1 = toM(this.form.hE1), s1 = toM(this.form.hS1);
-                    let e2 = toM(this.form.hE2), s2 = toM(this.form.hS2);
+                    const toM = (t) => { 
+                        if(!t) return null; 
+                        let [h,m] = t.split(':').map(Number); 
+                        return h * 60 + m; 
+                    };
                     
-                    let m1 = (s1!==null && e1!==null) ? (s1 < e1 ? (s1+1440)-e1 : s1-e1) : 0;
-                    let m2 = (this.form.esPartida && s2!==null && e2!==null) ? (s2 < e2 ? (s2+1440)-e2 : s2-e2) : 0;
-                    let real = m1 + m2;
-                    let total = (real > 0 && real < 360) ? 360 : real;
+                    let e1 = toM(this.form.hE1); let s1 = toM(this.form.hS1);
+                    let e2 = toM(this.form.hE2); let s2 = toM(this.form.hS2);
                     
-                    this.res.hTotal = this.formatMins(total);
-                    let k1 = (this.form.kmF1 - this.form.kmI1) || 0;
-                    let k2 = this.form.esPartida ? ((this.form.kmF2 - this.form.kmI2) || 0) : 0;
-                    this.res.kmTotal = k1 + k2;
-                    this.errorKm = (this.form.kmF1 < this.form.kmI1) || (this.form.esPartida && (this.form.kmF2 < this.form.kmI2));
+                    let m1 = 0;
+                    if (s1 !== null && e1 !== null) { m1 = (s1 < e1) ? (s1 + 1440) - e1 : s1 - e1; }
+                    let m2 = 0;
+                    if (this.form.esPartida && s2 !== null && e2 !== null) { m2 = (s2 < e2) ? (s2 + 1440) - e2 : s2 - e2; }
 
-                    let autoComida = false, autoCena = false;
-                    let tramo = m1 >= m2 ? { dur: m1, fin: s1 } : { dur: m2, fin: s2 };
-                    if (tramo.dur > 0) {
-                        let hTrab = tramo.dur / 60;
-                        if ((hTrab >= 9 && tramo.fin >= 900) || (hTrab >= 6 && tramo.fin >= 930 && tramo.fin <= 1020)) autoComida = true;
-                        if (tramo.fin >= 1380 || tramo.fin <= 360) autoCena = true;
+                    let realMins = m1 + m2;
+                    let totalMins = (realMins > 0 && realMins < 360) ? 360 : realMins;
+                    
+                    this.res.hTotal = `${Math.floor(totalMins/60).toString().padStart(2,'0')}:${(totalMins%60).toString().padStart(2,'0')}`;
+                    
+                    let k1 = (parseInt(this.form.kmF1) - parseInt(this.form.kmI1)) || 0;
+                    let k2 = (this.form.esPartida) ? ((parseInt(this.form.kmF2) - parseInt(this.form.kmI2)) || 0) : 0;
+                    this.res.kmTotal = k1 + k2;
+                    
+                    this.errorKm = (parseInt(this.form.kmF1) < parseInt(this.form.kmI1)) || (this.form.esPartida && (parseInt(this.form.kmF2) < parseInt(this.form.kmI2)));
+
+                    let autoComida = false;
+                    let autoCena = false;
+                    let evaluarTramo = null;
+
+                    if (!this.form.esPartida) {
+                        if (e1 !== null && s1 !== null) {
+                            evaluarTramo = { duracionMin: m1, finMin: s1 };
+                        }
+                    } else {
+                        if (m1 >= m2 && m1 > 0) {
+                            evaluarTramo = { duracionMin: m1, finMin: s1 };
+                        } else if (m2 > m1) {
+                            evaluarTramo = { duracionMin: m2, finMin: s2 };
+                        }
                     }
-                    this.autoComidaCalc = autoComida; this.autoCenaCalc = autoCena;
-                    if (!this.manualComida) this.form.comida = autoComida;
-                    if (!this.manualCena) this.form.cena = autoCena;
+
+                    if (evaluarTramo) {
+                        const { duracionMin, finMin } = evaluarTramo;
+                        const horasTrabajadas = duracionMin / 60;
+
+                        if (horasTrabajadas >= 9 && finMin >= 900 && finMin <= 1020) {
+                            autoComida = true;
+                        }
+                        if (horasTrabajadas >= 6 && finMin >= 930 && finMin <= 1020) {
+                            autoComida = true;
+                        }
+
+                        const esFinCenaOmasTarde = (finMin >= 1380 || finMin <= 360); 
+                        if (esFinCenaOmasTarde) {
+                            autoCena = true;
+                        }
+                    }
+
+                    this.autoComidaCalc = autoComida;
+                    this.autoCenaCalc = autoCena;
+
+                    if (!this.manualComida) { this.form.comida = autoComida; }
+                    if (!this.manualCena) { this.form.cena = autoCena; }
                 },
 
                 guardarJornada() {
+                    // Controles estrictos solicitados
                     if(!this.form.bus1) return this.notificar("⚠️ Falta el número de BUS", true);
                     if(this.form.hS1 && !this.form.hE1) return this.notificar("⚠️ Hora de fin sin inicio", true);
                     if(this.form.esPartida && this.form.hS2 && !this.form.hE2) return this.notificar("⚠️ Tramo 2: Fin sin inicio", true);
+                    if(this.errorKm) return this.notificar("⚠️ Error en los Kilómetros", true);
 
                     const reg = {
-                        id: this.form.id || Date.now(), fecha: this.fechaSeleccionada,
+                        id: this.form.id || Date.now(), 
+                        fecha: this.fechaSeleccionada,
                         bus: this.form.esPartida ? `${this.form.bus1}/${this.form.bus2||'?'}` : this.form.bus1,
-                        horas: this.res.hTotal, esPartida: this.form.esPartida, esFestivo: this.form.festivo,
-                        dietas: (this.form.comida?1:0) + (this.form.cena?1:0), km: this.res.kmTotal, datos: JSON.parse(JSON.stringify(this.form))
+                        hours: this.res.hTotal, // Ajustado para mantener estructura de datos
+                        horas: this.res.hTotal, 
+                        esPartida: this.form.esPartida, 
+                        esFestivo: this.form.festivo,
+                        dietas: (this.form.comida ? 1 : 0) + (this.form.cena ? 1 : 0),
+                        km: this.res.kmTotal, 
+                        datos: JSON.parse(JSON.stringify(this.form)),
+                        creadoEn: new Date().toISOString()
                     };
                     
                     if (db && this.userId !== 'local') {
+                        // CORREGIDO: Guarda en usuarios/ sin el prefijo que hacía rebotar
                         db.ref('usuarios/' + this.userId + '/' + reg.id).update(reg)
-                            .then(() => this.notificar("Sincronizado en tu nube privada"))
-                            .catch(() => this.notificar("Guardado local (Sin red)", true));
+                            .then(() => {
+                                this.notificar("¡Sincronizado en tu Nube Privada!");
+                            })
+                            .catch(e => {
+                                this.notificar("Guardado local (Sin conexión)", true);
+                            });
+                    } else {
+                        this.notificar("Guardado en Memoria Local", false);
                     }
 
                     const idx = this.historial.findIndex(h => h.fecha === this.fechaSeleccionada);
-                    if(idx > -1) this.historial[idx] = reg; else this.historial.unshift(reg);
+                    if(idx > -1) { this.historial[idx] = reg; } else { this.historial.unshift(reg); }
                     
-                    this.saveHist(); this.calcularTotales();
+                    this.saveHist(); 
+                    this.calcularTotales();
                     localStorage.removeItem('bus_borrador_seguridad');
-                    this.screen = 1; this.actualizarIconos();
+                    this.screen = 1; 
+                    this.actualizarIconos();
                 },
 
-                notificar(msg, isErr = false) {
-                    this.toast.msg = msg; this.toast.isError = isErr; this.toast.visible = true;
-                    setTimeout(() => this.toast.visible = false, 3000);
+                notificar(msg, isError = false) {
+                    this.toast.msg = msg;
+                    this.toast.isError = isError;
+                    this.toast.visible = true;
+                    setTimeout(() => { this.toast.visible = false; }, 3000);
                 },
 
                 getWeekNumber(d) {
                     d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
                     d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
-                    return Math.ceil((((d - new Date(Date.UTC(d.getUTCFullYear(), 0, 1))) / 86400000) + 1) / 7);
+                    var yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+                    return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
                 },
 
                 calcularTotales() {
-                    const hoy = new Date(); let m = hoy.getMonth(), y = hoy.getFullYear();
-                    let inicio = hoy.getDate() >= 16 ? new Date(y, m, 16) : new Date(y, m - 1, 16);
-                    let fin = hoy.getDate() >= 16 ? new Date(y, m + 1, 15) : new Date(y, m, 15);
+                    const hoy = new Date();
+                    const d = hoy.getDate(), m = hoy.getMonth(), y = hoy.getFullYear();
+                    let inicio, fin;
+                    
+                    if (d >= 16) { inicio = new Date(y, m, 16); fin = new Date(y, m + 1, 15); } 
+                    else { inicio = new Date(y, m - 1, 16); fin = new Date(y, m, 15); }
                     this.cicloLabel = `Ciclo: 16/${inicio.getMonth()+1} al 15/${fin.getMonth()+1}`;
 
-                    let cicloRegs = this.historial.filter(h => {
-                        const [d, mes] = h.fecha.split('/').map(Number);
-                        const f = new Date(y, mes - 1, d); return f >= inicio && f <= fin;
+                    let filtradosCiclo = this.historial.filter(h => {
+                        const [diaReg, mesReg] = h.fecha.split('/').map(Number);
+                        let añoReg = y;
+                        if (mesReg === 12 && inicio.getMonth() === 11) añoReg = inicio.getFullYear();
+                        if (mesReg === 1 && fin.getMonth() === 0) añoReg = fin.getFullYear();
+                        const fReg = new Date(añoReg, mesReg - 1, diaReg);
+                        return fReg >= inicio && fReg <= fin;
                     });
 
-                    let mt = 0, kt = 0, dt = 0, pt = 0, nt = 0;
-                    cicloRegs.forEach(h => {
-                        let [hh,mm] = h.horas.split(':').map(Number); mt += (hh*60+mm);
-                        kt += h.km; dt += h.dietas; if(h.esPartida) pt++; nt += this.getMinutosNocturnos(h);
+                    let mt = 0, kt = 0, dt = 0, pt = 0, ntMins = 0;
+                    filtradosCiclo.forEach(h => {
+                        let [hh,mm] = h.horas.split(':').map(Number); 
+                        mt += (hh * 60 + mm); 
+                        kt += h.km; 
+                        dt += h.dietas;
+                        if(h.esPartida) pt++; 
+                        ntMins += this.getMinutosNocturnos(h);
                     });
-                    this.stats = { hTotales: `${Math.floor(mt/60)}:${(mt%60).toString().padStart(2,'0')}`, kmTotales: kt + ' KM', numDietas: dt, numPartidas: pt, hoursNocturnas: this.formatMins(nt) };
+                    
+                    this.stats = { 
+                        hTotales: `${Math.floor(mt/60)}:${(mt%60).toString().padStart(2,'0')}`, 
+                        kmTotales: kt + ' KM', 
+                        numDietas: dt, 
+                        numPartidas: pt, 
+                        hoursNocturnas: this.formatMins(ntMins)
+                    };
 
-                    const mesFiltro = String(this.currentMonth + 1).padStart(2, '0');
-                    let mesRegs = this.historial.filter(h => h.fecha.split('/')[1] === mesFiltro);
+                    const mesFiltroCadena = String(this.currentMonth + 1).padStart(2, '0');
+                    let registrosMesSeleccionado = this.historial.filter(h => h.fecha.split('/')[1] === mesFiltroCadena);
 
-                    const grupos = {};
-                    mesRegs.forEach(h => {
-                        const [d, mes] = h.fecha.split('/').map(Number);
-                        const sem = this.getWeekNumber(new Date(this.currentYear, mes - 1, d));
-                        if (!grupos[sem]) grupos[sem] = { registros: [], mins: 0, km: 0, dietas: 0, part: 0, noc: 0 };
-                        grupos[sem].registros.push(h);
+                    const gruposSemanales = {};
+                    registrosMesSeleccionado.forEach(h => {
+                        const [dia, mes] = h.fecha.split('/').map(Number);
+                        const numSemana = this.getWeekNumber(new Date(this.currentYear, mes - 1, dia));
+                        
+                        if (!gruposSemanales[numSemana]) {
+                            gruposSemanales[numSemana] = { 
+                                registros: [], 
+                                totalMins: 0, 
+                                totalKm: 0, 
+                                totalDietas: 0, 
+                                totalPartidas: 0, 
+                                totalNocturnasMins: 0,
+                                totalFestivos: 0
+                            };
+                        }
+                        
+                        gruposSemanales[numSemana].registros.push(h);
                         let [hh, mm] = h.horas.split(':').map(Number);
-                        grupos[sem].mins += (hh*60+mm); grupos[sem].km += h.km; grupos[sem].dietas += h.dietas;
-                        if(h.esPartida) grupos[sem].part++; grupos[sem].noc += this.getMinutosNocturnos(h);
+                        gruposSemanales[numSemana].totalMins += (hh * 60 + mm);
+                        gruposSemanales[numSemana].totalKm += h.km;
+                        gruposSemanales[numSemana].totalDietas += h.dietas;
+                        if(h.esPartida) gruposSemanales[numSemana].totalPartidas++;
+                        if(h.esFestivo) gruposSemanales[numSemana].totalFestivos++;
+                        gruposSemanales[numSemana].totalNocturnasMins += this.getMinutosNocturnos(h);
                     });
 
-                    this.semanasAgrupadas = Object.keys(grupos).map(k => ({
-                        rango: `Semana ${k}`, registros: grupos[k].registros,
-                        totalHoras: this.formatMins(grupos[k].mins), totalDietas: grupos[k].dietas,
-                        totalKm: grupos[k].km, totalPartidas: grupos[k].part, totalNocturnas: this.formatMins(grupos[k].noc)
-                    })).sort((a,b) => b.registros[0].id - a.registros[0].id);
+                    this.semanasAgrupadas = Object.keys(gruposSemanales).map(key => {
+                        const g = gruposSemanales[key];
+                        return {
+                            rango: `Semana ${key}`,
+                            registros: g.registros.sort((a,b) => b.id - a.id),
+                            totalHoras: `${Math.floor(g.totalMins/60)}:${(g.totalMins%60).toString().padStart(2,'0')}`,
+                            totalDietas: g.totalDietas,
+                            totalKm: g.totalKm,
+                            totalPartidas: g.totalPartidas,
+                            totalFestivos: g.totalFestivos,
+                            totalNocturnas: this.formatMins(g.totalNocturnasMins)
+                        };
+                    }).sort((a, b) => b.registros[0].id - a.registros[0].id);
                 },
 
                 getRegistrosMesActual() {
-                    const m = String(this.currentMonth + 1).padStart(2, '0');
-                    return this.historial.filter(h => h.fecha.split('/')[1] === m).sort((a,b) => a.id - b.id);
+                    const mesFiltroCadena = String(this.currentMonth + 1).padStart(2, '0');
+                    return this.historial.filter(h => h.fecha.split('/')[1] === mesFiltroCadena).sort((a,b) => a.id - b.id);
                 },
 
                 exportarMensualADrive() {
-                    let f = this.getRegistrosMesActual(); if(!f.length) return;
-                    let csv = "Fecha,Bus,Horas,Dietas,Kilometros\n";
-                    f.forEach(r => csv += `${r.fecha},${r.bus},${r.horas},${r.dietas},${r.km}\n`);
-                    const blob = new Blob([csv], { type: 'text/csv' });
-                    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `Nomina_${this.currentMonth+1}.csv`; a.click();
-                },
+                    let filtrados = this.getRegistrosMesActual();
+                    if(filtrados.length === 0) return this.notificar("No hay datos en este mes", true);
+                    
+                    let csv = "Fecha,Bus,Horas,Dietas,Horas Nocturnas,Kilometros,Partida,Festivo\n";
+                    filtrados.forEach(r => {
+                        let noc = this.formatMins(this.getMinutosNocturnos(r));
+                        csv += `${r.fecha},${r.bus},${r.horas},${r.dietas},${noc},${r.km},${r.esPartida?'SI':'NO'},${r.esFestivo?'SI':'NO'}\n`;
+                    });
 
-                generarPDFDescargaDirecta() {
-                    let f = this.getRegistrosMesActual(); if(!f.length) return;
-                    let trs = '';
-                    f.forEach(r => trs += `<tr><td>${r.fecha}</td><td>${r.bus}</td><td>${r.horas}</td><td>${r.dietas}</td><td>${r.km}</td></tr>`);
-                    let html = `<html><body><h2>Mes: ${this.monthNames[this.currentMonth]}</h2><table border="1">${trs}</table></body></html>`;
-                    const blob = new Blob([html], { type: 'text/html' });
-                    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `Nomina_${this.monthNames[this.currentMonth]}.html`; a.click();
-                },
+                    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                    const file = new File([blob], `Nomina_Mes_${this.currentMonth+1}.csv`, { type: 'text/csv' });
 
-                borrarRegistro(id) {
-                    if(confirm('¿Borrar?')) {
-                        this.historial = this.historial.filter(h => h.id !== id); this.saveHist();
-                        if (db && this.userId !== 'local') db.ref('usuarios/' + this.userId + '/' + id).remove();
-                        this.calcularTotales();
+                    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                        navigator.share({ files: [file], title: 'Nómina', text: 'Resumen de nómina' }).catch(e => console.log(e));
+                    } else {
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url; a.download = file.name; a.click(); URL.revokeObjectURL(url);
+                        this.notificar("Archivo descargado");
                     }
                 },
 
-                confirmarReset() { if(confirm('¿Borrar todo el dispositivo?')) { this.historial = []; this.saveHist(); this.calcularTotales(); } },
+                generarPDFDescargaDirecta() {
+                    let filtrados = this.getRegistrosMesActual();
+                    if(filtrados.length === 0) return this.notificar("No hay datos en este mes", true);
+
+                    let trs = '';
+                    filtrados.forEach(r => {
+                        let noc = this.getMinutosNocturnos(r) > 0 ? this.formatMins(this.getMinutosNocturnos(r)) : '-';
+                        trs += `
+                            <tr>
+                                <td>${r.fecha}</td>
+                                <td>${r.bus}</td>
+                                <td>${r.horas}</td>
+                                <td>${r.dietas}</td>
+                                <td>${r.esPartida ? 'SÍ' : '-'}</td>
+                                <td>${noc}</td>
+                                <td>${r.km}</td>
+                                <td>${r.esFestivo ? 'SÍ' : '-'}</td>
+                            </tr>
+                        `;
+                    });
+
+                    let html = `
+                        <html>
+                        <head>
+                            <meta charset="UTF-8">
+                            <title>Nomina_Mes</title>
+                            <style>
+                                body { font-family: system-ui, sans-serif; padding: 25px; color: #1e293b; background-color: #ffffff; }
+                                h1 { text-align: center; color: #0f172a; font-size: 22px; border-bottom: 3px solid #707070; padding-bottom: 12px; margin-bottom: 20px; text-transform: uppercase; }
+                                table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 13px; }
+                                th, td { border: 1px solid #e2e8f0; padding: 10px; text-align: center; }
+                                th { background-color: #f8fafc; color: #475569; font-weight: 800; text-transform: uppercase; font-size: 11px; }
+                                tr:nth-child(even) { background-color: #f1f5f9; }
+                            </style>
+                        </head>
+                        <body>
+                            <h1>Resumen Turnos - Mes ${this.monthNames[this.currentMonth]}</h1>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Bus</th>
+                                        <th>Horas</th>
+                                        <th>Dietas</th>
+                                        <th>Part.</th>
+                                        <th>Noc.</th>
+                                        <th>Km</th>
+                                        <th>Fes.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${trs}
+                                </tbody>
+                            </table>
+                            <p style="text-align:right; font-size:11px; color:#94a3b8; font-style:italic; margin-top:30px;">MED BASHA PRO - medbasha</p>
+                        </body>
+                        </html>
+                    `;
+
+                    const blob = new Blob([html], { type: 'text/html;charset=utf-8;' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `Nomina_${this.monthNames[this.currentMonth]}_MBP.html`;
+                    a.click(); 
+                    URL.revokeObjectURL(url);
+                    this.notificar("Informe descargado");
+                },
+
+                borrarRegistro(id) { 
+                    if(confirm('¿Borrar este registro?')) { 
+                        this.historial = this.historial.filter(h => h.id !== id); 
+                        this.saveHist(); 
+                        if (db && this.userId !== 'local') db.ref('usuarios/' + this.userId + '/' + id).remove();
+                        this.calcularTotales(); 
+                        this.notificar("Registro eliminado");
+                    } 
+                },
+
+                confirmarReset() {
+                    if(confirm('🚨 ¿Estás seguro de borrar los datos de tu dispositivo?')) { 
+                        this.historial = []; this.saveHist(); this.calcularTotales(); 
+                        this.notificar("Datos locales reseteados");
+                    }
+                },
+
                 saveHist() { localStorage.setItem('bus_historial', JSON.stringify(this.historial)); },
                 saveSett() { localStorage.setItem('bus_settings', JSON.stringify(this.settings)); },
                 volverAlInicio() { this.screen = 1; this.actualizarIconos(); },
-                changeMonth(s) { this.currentMonth += s; if(this.currentMonth>11){this.currentMonth=0;this.currentYear++;}else if(this.currentMonth<0){this.currentMonth=11;this.currentYear--;} this.renderCalendar(); },
+                
+                changeMonth(s) { 
+                    this.currentMonth += s; 
+                    if(this.currentMonth > 11) { this.currentMonth = 0; this.currentYear++; } 
+                    else if(this.currentMonth < 0) { this.currentMonth = 11; this.currentYear--; } 
+                    this.renderCalendar(); 
+                },
+                
                 abrirAlarma() { window.location.href = "intent://com.android.deskclock/#Intent;scheme=android-app;end"; },
                 abrirCalculadora() { window.open('https://www.google.com/search?q=calculadora', '_blank'); },
                 actualizarIconos() { this.$nextTick(() => lucide.createIcons()); }
